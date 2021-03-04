@@ -68,9 +68,9 @@ func (c *RequiredHeaderAuthService) Start(context.Context) error {
 func (c *RequiredHeaderAuthService) Authorize(ctx context.Context, request *api.AuthorizationRequest) (*api.AuthorizationResponse, error) {
 
 	// Take rewritten Host (Cloud Run Service) and create a serviceURL
-	rewrittenHost = request.CheckRequest.GetAttributes().GetRequest().GetHttp().GetHost()
+	var serviceHost = request.CheckRequest.GetAttributes().GetRequest().GetHttp().GetHost()
 
-	tokenURL := fmt.Sprintf("/instance/service-accounts/default/identity?audience=%s", "https://"+rewrittenHost)
+	tokenURL := fmt.Sprintf("/instance/service-accounts/default/identity?audience=%s", "https://"+serviceHost)
 	// Get token from Google Cloud Metadata Server
 	idToken, err := metadata.Get(tokenURL)
 	if err != nil {
@@ -90,6 +90,8 @@ func (c *RequiredHeaderAuthService) Authorize(ctx context.Context, request *api.
 			}},
 		},
 	}
+
+	return response, nil
 }
 
 func logger(ctx context.Context) *zap.SugaredLogger {
