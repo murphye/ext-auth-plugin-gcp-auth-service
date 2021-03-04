@@ -10,6 +10,8 @@ import (
 	"github.com/solo-io/ext-auth-plugins/api"
 	"github.com/solo-io/go-utils/contextutils"
 	"go.uber.org/zap"
+
+	"cloud.google.com/go/compute/metadata"
 )
 
 var (
@@ -64,33 +66,30 @@ func (c *RequiredHeaderAuthService) Start(context.Context) error {
 }
 
 func (c *RequiredHeaderAuthService) Authorize(ctx context.Context, request *api.AuthorizationRequest) (*api.AuthorizationResponse, error) {
-	for key, value := range request.CheckRequest.GetAttributes().GetRequest().GetHttp().GetHeaders() {
-		if key == c.RequiredHeader {
-			logger(ctx).Infow("Found required header, checking value.", "header", key, "value", value)
 
-			if _, ok := c.AllowedValues[value]; ok {
-				logger(ctx).Infow("Header value match. Allowing request.")
-				response := api.AuthorizedResponse()
+	// Take rewritten Host (Cloud Run Service) and create a serviceURL
+	rewrittenHost = request.CheckRequest.GetAttributes().GetRequest().GetHttp().GetHost()
 
-				// Append extra header
-				response.CheckResponse.HttpResponse = &envoy_service_auth_v3.CheckResponse_OkResponse{
-					OkResponse: &envoy_service_auth_v3.OkHttpResponse{
-						Headers: []*envoy_config_core_v3.HeaderValueOption{{
-							Header: &envoy_config_core_v3.HeaderValue{
-								Key:   "matched-allowed-headers",
-								Value: "true",
-							},
-						}},
-					},
-				}
-				return response, nil
-			}
-			logger(ctx).Infow("Header value does not match allowed values, denying access.")
-			return api.UnauthorizedResponse(), nil
-		}
+	tokenURL := fmt.Sprintf("/instance/service-accounts/default/identity?audience=%s", "https://"+rewrittenHost)
+	// Get token from Google Cloud Metadata Server
+	idToken, err := metadata.Get(tokenURL)
+	if err != nil {
+		return api.UnauthorizedResponse(), nil
 	}
-	logger(ctx).Infow("Required header not found, denying access")
-	return api.UnauthorizedResponse(), nil
+
+	response := api.AuthorizedResponse()
+
+	// Add Bearer token from Google Cloud Metadata Server
+	response.CheckResponse.HttpResponse = &envoy_service_auth_v3.CheckResponse_OkResponse{
+		OkResponse: &envoy_service_auth_v3.OkHttpResponse{
+			Headers: []*envoy_config_core_v3.HeaderValueOption{{
+				Header: &envoy_config_core_v3.HeaderValue{
+					Key:   "Bearer: ",
+					Value: idToken,
+				},
+			}},
+		},
+	}
 }
 
 func logger(ctx context.Context) *zap.SugaredLogger {

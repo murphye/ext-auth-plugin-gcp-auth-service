@@ -3,6 +3,7 @@ module github.com/solo-io/ext-auth-plugin-examples
 go 1.14
 
 require (
+	cloud.google.com/go v0.65.0
 	// Merged 'require' section of the Gloo depenencies and your go.mod file:
 	github.com/envoyproxy/go-control-plane v0.9.6-0.20200401235947-be7fefdaf0df
 	github.com/niemeyer/pretty v0.0.0-00010101000000-000000000000 // indirect
@@ -12,17 +13,15 @@ require (
 	github.com/solo-io/ext-auth-plugins v0.2.0
 	github.com/solo-io/go-utils v0.14.2
 	go.uber.org/zap v1.13.0
-	google.golang.org/genproto v0.0.0-20200309141739-5b75447e413d // indirect
-	google.golang.org/grpc v1.28.0-pre.0.20200226185027-6cd03861bfd2 // indirect
 )
 
 replace (
 	// Merged 'replace' section of the Gloo depenencies and your go.mod file:
 	bazil.org/fuse => bazil.org/fuse v0.0.0-20160811212531-371fbbdaa898
 	bitbucket.org/bertimus9/systemstat => bitbucket.org/bertimus9/systemstat v0.0.0-20180207000608-0eeff89b0690
-	cloud.google.com/go => cloud.google.com/go v0.52.0
+	cloud.google.com/go => cloud.google.com/go v0.65.0
 	cloud.google.com/go/bigquery => cloud.google.com/go/bigquery v1.8.0
-	cloud.google.com/go/datastore => cloud.google.com/go/datastore v1.0.0
+	cloud.google.com/go/datastore => cloud.google.com/go/datastore v1.3.0
 	cloud.google.com/go/firestore => cloud.google.com/go/firestore v1.1.0
 	cloud.google.com/go/pubsub => cloud.google.com/go/pubsub v1.3.1
 	cloud.google.com/go/storage => cloud.google.com/go/storage v1.10.0
@@ -105,6 +104,7 @@ replace (
 	github.com/asaskevich/govalidator => github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496
 	github.com/auth0/go-jwt-middleware => github.com/auth0/go-jwt-middleware v0.0.0-20170425171159-5493cabe49f7
 	github.com/avast/retry-go => github.com/avast/retry-go v2.4.3+incompatible
+	github.com/aws/aws-app-mesh-controller-for-k8s => github.com/aws/aws-app-mesh-controller-for-k8s v1.1.1
 	github.com/aws/aws-lambda-go => github.com/aws/aws-lambda-go v1.13.3
 	github.com/aws/aws-sdk-go => github.com/aws/aws-sdk-go v1.34.9
 	github.com/aws/aws-sdk-go-v2 => github.com/aws/aws-sdk-go-v2 v0.18.0
@@ -134,7 +134,7 @@ replace (
 	github.com/caddyserver/caddy => github.com/caddyserver/caddy v1.0.3
 	github.com/casbin/casbin/v2 => github.com/casbin/casbin/v2 v2.1.2
 	github.com/cenkalti/backoff => github.com/cenkalti/backoff v2.2.1+incompatible
-	github.com/census-instrumentation/opencensus-proto => github.com/census-instrumentation/opencensus-proto v0.2.0
+	github.com/census-instrumentation/opencensus-proto => github.com/census-instrumentation/opencensus-proto v0.3.0
 	github.com/certifi/gocertifi => github.com/certifi/gocertifi v0.0.0-20190105021004-abcd57078448
 	github.com/cespare/prettybench => github.com/cespare/prettybench v0.0.0-20150116022406-03b8cfe5406c
 	github.com/cespare/xxhash => github.com/cespare/xxhash v1.1.0
@@ -154,7 +154,7 @@ replace (
 	github.com/client9/misspell => github.com/client9/misspell v0.3.4
 	github.com/cloudflare/cfssl => github.com/cloudflare/cfssl v0.0.0-20180726162950-56268a613adf
 	github.com/clusterhq/flocker-go => github.com/clusterhq/flocker-go v0.0.0-20160920122132-2b8b7259d313
-	github.com/cncf/udpa/go => github.com/cncf/udpa/go v0.0.0-20200629203442-efcf912fb354
+	github.com/cncf/udpa/go => github.com/cncf/udpa/go v0.0.0-20201120205902-5459f2c99403
 	github.com/cockroachdb/apd => github.com/cockroachdb/apd v1.1.0
 	github.com/cockroachdb/apd/v2 => github.com/cockroachdb/apd/v2 v2.0.1
 	github.com/cockroachdb/datadriven => github.com/cockroachdb/datadriven v0.0.0-20190809214429-80d97fb3cbaa
@@ -228,7 +228,7 @@ replace (
 	github.com/emicklei/go-restful => github.com/emicklei/go-restful v2.11.1+incompatible
 	github.com/emicklei/proto => github.com/emicklei/proto v1.6.15
 	github.com/emirpasic/gods => github.com/emirpasic/gods v1.12.0
-	github.com/envoyproxy/go-control-plane => github.com/envoyproxy/go-control-plane v0.9.6-0.20200529035633-fc42e08917e9
+	github.com/envoyproxy/go-control-plane => github.com/envoyproxy/go-control-plane v0.9.8
 	github.com/envoyproxy/protoc-gen-validate => github.com/envoyproxy/protoc-gen-validate v0.4.0
 	github.com/euank/go-kmsg-parser => github.com/euank/go-kmsg-parser v2.0.0+incompatible
 	github.com/evanphx/json-patch => github.com/evanphx/json-patch v4.5.0+incompatible
@@ -302,7 +302,7 @@ replace (
 	github.com/golang/groupcache => github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e
 	github.com/golang/lint => github.com/golang/lint v0.0.0-20180702182130-06c8688daad7
 	github.com/golang/mock => github.com/golang/mock v1.4.4
-	github.com/golang/protobuf => github.com/golang/protobuf v1.3.5
+	github.com/golang/protobuf => github.com/golang/protobuf v1.4.3
 	github.com/golang/snappy => github.com/golang/snappy v0.0.1
 	github.com/golangplus/bytes => github.com/golangplus/bytes v0.0.0-20160111154220-45c989fe5450
 	github.com/golangplus/fmt => github.com/golangplus/fmt v0.0.0-20150411045040-2a5d6d7d2995
@@ -333,7 +333,8 @@ replace (
 	github.com/google/gofuzz => github.com/google/gofuzz v1.1.0
 	github.com/google/mako => github.com/google/mako v0.0.0-20190821191249-122f8dcef9e3
 	github.com/google/martian => github.com/google/martian v2.1.1-0.20190517191504-25dcb96d9e51+incompatible
-	github.com/google/pprof => github.com/google/pprof v0.0.0-20191218002539-d4f498aebedc
+	github.com/google/martian/v3 => github.com/google/martian/v3 v3.0.0
+	github.com/google/pprof => github.com/google/pprof v0.0.0-20200708004538-1a94d8640e99
 	github.com/google/renameio => github.com/google/renameio v0.1.0
 	github.com/google/subcommands => github.com/google/subcommands v1.0.1
 	github.com/google/uuid => github.com/google/uuid v1.1.2
@@ -457,7 +458,7 @@ replace (
 	github.com/lucas-clemente/quic-go-certificates => github.com/lucas-clemente/quic-go-certificates v0.0.0-20160823095156-d2f86524cced
 	github.com/lunixbochs/vtclean => github.com/lunixbochs/vtclean v0.0.0-20180621232353-2d01aacdc34a
 	github.com/lyft/protoc-gen-star => github.com/lyft/protoc-gen-star v0.5.1
-	github.com/lyft/protoc-gen-validate => github.com/lyft/protoc-gen-validate v0.1.0
+	github.com/lyft/protoc-gen-validate => github.com/lyft/protoc-gen-validate v0.0.13
 	github.com/magiconair/properties => github.com/magiconair/properties v1.8.1
 	github.com/mailru/easyjson => github.com/mailru/easyjson v0.7.1-0.20191009090205-6c0755d89d1e
 	github.com/manifoldco/promptui => github.com/manifoldco/promptui v0.7.0
@@ -615,19 +616,19 @@ replace (
 	github.com/solo-io/envoy-operator => github.com/solo-io/envoy-operator v0.1.4
 	github.com/solo-io/ext-auth-plugin-examples => github.com/solo-io/ext-auth-plugin-examples v0.1.2-0.20191219182743-362e50211779
 	github.com/solo-io/ext-auth-plugins => github.com/solo-io/ext-auth-plugins v0.2.0
-	github.com/solo-io/ext-auth-service => github.com/solo-io/ext-auth-service v0.7.5
-	github.com/solo-io/external-apis => github.com/solo-io/external-apis v0.0.6
-	github.com/solo-io/gloo => github.com/solo-io/gloo v1.6.0-beta18
+	github.com/solo-io/ext-auth-service => github.com/solo-io/ext-auth-service v0.7.9
+	github.com/solo-io/external-apis => github.com/solo-io/external-apis v0.1.1
+	github.com/solo-io/gloo => github.com/solo-io/gloo v1.6.6
 	github.com/solo-io/go-list-licenses => github.com/solo-io/go-list-licenses v0.0.0-20191023220251-171e4740d00f
-	github.com/solo-io/go-utils => github.com/solo-io/go-utils v0.20.0
-	github.com/solo-io/k8s-utils => github.com/solo-io/k8s-utils v0.0.2
+	github.com/solo-io/go-utils => github.com/solo-io/go-utils v0.20.1
+	github.com/solo-io/k8s-utils => github.com/solo-io/k8s-utils v0.0.3
 	github.com/solo-io/licensing => github.com/solo-io/licensing v0.1.17
-	github.com/solo-io/protoc-gen-ext => github.com/solo-io/protoc-gen-ext v0.0.9
-	github.com/solo-io/rate-limiter => github.com/solo-io/rate-limiter v0.1.5
+	github.com/solo-io/protoc-gen-ext => github.com/solo-io/protoc-gen-ext v0.0.14
+	github.com/solo-io/rate-limiter => github.com/solo-io/rate-limiter v0.1.10
 	github.com/solo-io/reporting-client => github.com/solo-io/reporting-client v0.2.0
-	github.com/solo-io/skv2 => github.com/solo-io/skv2 v0.13.5
-	github.com/solo-io/solo-apis => github.com/solo-io/solo-apis v0.0.0-20201103221621-bbe4f60f466d
-	github.com/solo-io/solo-kit => github.com/solo-io/solo-kit v0.15.2
+	github.com/solo-io/skv2 => github.com/solo-io/skv2 v0.15.2
+	github.com/solo-io/solo-apis => github.com/solo-io/solo-apis v0.0.0-20201217203626-64c05e4a6c41
+	github.com/solo-io/solo-kit => github.com/solo-io/solo-kit v0.17.1
 	github.com/solo-io/wasm/tools/wasme/pkg => github.com/solo-io/wasm/tools/wasme/pkg v0.0.0-20201021213306-77f82bdc3cc3
 	github.com/solo-io/wasme => github.com/solo-io/wasme v0.0.13-rc1
 	github.com/sony/gobreaker => github.com/sony/gobreaker v0.4.1
@@ -713,14 +714,14 @@ replace (
 	golang.org/x/tools => golang.org/x/tools v0.0.0-20201117152513-9036a0f9af11
 	golang.org/x/xerrors => golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1
 	gomodules.xyz/jsonpatch/v2 => gomodules.xyz/jsonpatch/v2 v2.1.0
-	gonum.org/v1/gonum => gonum.org/v1/gonum v0.6.2
+	gonum.org/v1/gonum => gonum.org/v1/gonum v0.7.0
 	gonum.org/v1/netlib => gonum.org/v1/netlib v0.0.0-20191031114514-eccb95939662
 	gonum.org/v1/plot => gonum.org/v1/plot v0.0.0-20190515093506-e2840ee46a6b
-	google.golang.org/api => google.golang.org/api v0.15.0
+	google.golang.org/api => google.golang.org/api v0.34.0
 	google.golang.org/appengine => google.golang.org/appengine v1.6.6
 	google.golang.org/cloud => google.golang.org/cloud v0.0.0-20151119220103-975617b05ea8
-	google.golang.org/genproto => google.golang.org/genproto v0.0.0-20200117163144-32f20d992d24
-	google.golang.org/grpc => google.golang.org/grpc v1.28.0
+	google.golang.org/genproto => google.golang.org/genproto v0.0.0-20200916143405-f6a2fa72f0c4
+	google.golang.org/grpc => google.golang.org/grpc v1.33.1
 	google.golang.org/protobuf => google.golang.org/protobuf v1.25.0
 	gopkg.in/AlecAivazis/survey.v1 => gopkg.in/AlecAivazis/survey.v1 v1.8.7
 	gopkg.in/airbrake/gobrake.v2 => gopkg.in/airbrake/gobrake.v2 v2.0.9
@@ -758,8 +759,8 @@ replace (
 	gotest.tools/gotestsum => gotest.tools/gotestsum v0.3.5
 	helm.sh/helm/v3 => helm.sh/helm/v3 v3.2.4
 	honnef.co/go/tools => honnef.co/go/tools v0.0.1-2020.1.5
-	istio.io/api => istio.io/api v0.0.0-20200807153343-42453f1c8ffc
-	istio.io/client-go => istio.io/client-go v0.0.0-20200807223845-61c70ad04ec9
+	istio.io/api => istio.io/api v0.0.0-20200723170824-3c2193e74947
+	istio.io/client-go => istio.io/client-go v0.0.0-20200610222318-1cfead1f1938
 	istio.io/gogo-genproto => istio.io/gogo-genproto v0.0.0-20191009201739-17d570f95998
 	istio.io/tools => istio.io/tools v0.0.0-20200918020118-6d0a0e49b5d3
 	k8s.io/api => k8s.io/api v0.18.6
